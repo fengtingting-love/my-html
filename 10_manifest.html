@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!-- //应用程序缓存优势 -->
+  <!--
+       1.离线浏览-用户可以在离线时使用它们
+       2.速度-已缓存资源加载速度更快
+       3.减少服务器负载-浏览器将只从服务器下载更新或更改过的资源
+   -->
+   CACHE MANIFEST
+    <!-- # 2012-02-21 v1.0.0  #开头这是注释 -->
+    /theme.css
+    /logo.gif
+    /main.js
+   <!-- 代表以上三个文件加载后浏览器会从网站的根目录下载这三个文件，然后，无论用户何时与因特网断开连接，这些资源依然是可用的 -->
+    NETWORK:
+    login.php
+    <!-- 代表上面这个文件永远不会被缓存，且离线的时候是不能用的 -->
+    FALLBACK:
+    /html/ /offline.html
+    <!-- 代表上面这个文件如果无法建立因特网链接，则用offline.html替代本来html文件的内容 -->
+</body>
+</html>
