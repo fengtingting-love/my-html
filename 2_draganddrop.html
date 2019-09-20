@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 第二步：设置样式 -->
+  <style type="text/css">
+    #div1 {
+      width:500px;
+      height:500px;
+      padding:10px;
+      border:1px solid rgba(245,167,20,.6);
+      display: inline-block;
+      background: url('./img/home.jpg') no-repeat;
+      background-size: 500px 500px;
+      }
+    .home{
+      width:500px;
+      height: 500px;
+    }
+    </style>
+</head>
+<body>
+  <!--drag 拖动     drop放置 --> 
+  <!-- 第一步：先设置好图案和放置框的位置 -->
+  <div>请把我带回家，谢谢你哦</div>
+  <img id="drag1" src="./img/证件照.png" draggable="true" ondragstart="drag(event)" width="500" height="500">
+  <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <!-- 第三步：写js代码，动起来-->
+  <script>
+    function allowDrop(ev){
+      // console.log(ev);
+      ev.preventDefault();
+    }
+    function drag(ev){
+      // console.log(ev);
+      ev.dataTransfer.setData("Text",ev.target.id); //设置拖动那个图案的id
+    }
+    function drop(ev){
+      ev.preventDefault();
+      var data=ev.dataTransfer.getData("Text");  //从drag事件中获取的被拖动的图片的id
+      ev.target.appendChild(document.getElementById(data));
+      var tar=document.getElementById(data);
+      tar.setAttribute("style","width:100px;height:100px;position:relative;top:300px;left:220px;opacity:0.8;");
+      console.log(tar);
+      console.log(tar.getAttribute("src"));
+    }
+  </script>
+</body>
+</html>

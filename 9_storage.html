@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div style="border: 2px dashed #ccc;width:320px;text-align:center;">
+    <label for="sitename">网站名(key):</label>
+    <input type="text" id="sitename" name="sitename" class="text">
+    <br/>
+    <label for="siteurl">网址(value):</label>
+    <input type="text" id="siteurl" name="siteurl">
+    <br/>
+    <input type="button" onclick="save()" value="新增记录">
+    <hr/>
+    <label for="search_site">输入网站名:</label>
+    <input type="text" id="search_site" name="search_site">
+    <input type="button" onclick="find()" value="查找网站">
+    <p id="find_result"><br/></p>
+  </div>
+  <script>
+    function save(){
+      var siteurl=document.getElementById('siteurl').value;
+      console.log(siteurl);
+      var sitename=document.getElementById('sitename').value;
+      localStorage.setItem(sitename,siteurl);
+      alert("添加成功");
+      document.getElementById('siteurl').value="";
+      document.getElementById('sitename').value=""
+    }
+    function find(){
+      var search_site=document.getElementById("search_site").value;
+      var sitename=localStorage.getItem(search_site);
+      console.log(sitename);
+      var find_result=document.getElementById('find_result');
+      find_result.innerHTML=search_site+"的网址是"+sitename;
+    }
+  </script>
+</body>
+</html>
