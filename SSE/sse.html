@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="result"></div>
+  <script>
+    if(typeof(EventSource)!=='undefined'){
+      // console.log("恭喜您，你的浏览器是支持EventSource事件的");
+      //1.创建一个新的EventSource对象，然后规定发送更新的页面的URL
+      var source=new EventSource('demo_sse.php');
+      //2.每接收到一次更新，就会发生onmessage事件，进行相应的操作
+      source.onmessage=function(event){
+        document.getElementById('result').innerHTML+=event.data+"<br/>"
+      };
+    }else{
+      alert("很抱歉，您的浏览器不支持EventSource事件哦！")
+    }
+    
+  </script>
+</body>
+</html>
