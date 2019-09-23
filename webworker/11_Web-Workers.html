@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 原生js -->
+  <!-- <div id="app"></div>
+  <input type="button" value="增加" class="add">
+  <input type="button" value="停止" class="stop"> -->
+
+  
+  <!-- web worker -->
+  <p>计数：<output id="result"></output></p>
+  <input type="button" value="增加" onclick="startWork()"/>
+  <input type="button" value="停止" onclick="stopWork()"/>
+  <script>
+    // 原生js
+    // // 1.首先判断浏览器是否支持web worker
+    // if(typeof(Worker)!=="undefined"){
+    //   console.log("恭喜你，浏览器支持web worker");
+    // }else{
+    //   console.log("抱歉，浏览器不支持web worker");
+    // }
+    // //将定时器内容变化显示在屏幕上
+    // var addnum=document.getElementsByClassName("add");
+    // var stopnum=document.getElementsByClassName("stop");
+    // var i=0;
+    // document.querySelector("#app").innerHTML=i;
+    // var addnumtimes=setInterval(function(){
+
+    //     i+=1;
+    //     postMessage(i);
+    //     document.querySelector("#app").innerHTML=i;
+    //    },1000);
+    // addnum[0].onclick=function(){
+    //   function timeCount(){
+    //     i+=1;
+    //     postMessage(i);
+    //   };
+    // }
+    // stopnum[0].onclick=function(){
+    //   clearInterval(addnumtimes);
+    // }
+
+    // web worker
+    var w;
+    function startWork(){
+      if(typeof(Worker)!=="undefined"){
+        if(typeof(w)=="undefined"){
+          //Worker线程无法读取本地文件，即不能打开本机的文件系统(file://)，它所加载的脚本，必须来自网络
+          w=new Worker("demo_workers.js");
+          console.log(w);
+        }
+        w.onmessage=function(event){
+          document.getElementById("result").innerHTML=event.data;
+        };
+      }else{
+        document.getElementById("result").innerHTML="抱歉，您的浏览器不支持 Web Workers ...";
+      }
+    }
+    function stopWork(){
+      w.terminate();
+      //w.terminate()用来关闭主线程Worker，self.close()用来关闭Worker线程
+      w=undefined;
+    }
+  </script>
+</body>
+</html>
